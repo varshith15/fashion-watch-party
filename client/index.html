@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>AI Fashion Stream Overlay - Live Runway Experience</title>
+    <meta name="description" content="Experience fashion shows like never before with AI-enhanced live streaming, real-time model identification, virtual try-on, and social watch parties.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="AI Fashion Stream Overlay - Live Runway Experience" />
+    <meta property="og:description" content="Watch fashion shows with AI-powered overlays, virtual try-on, and real-time social features." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&h=630&fit=crop" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>" />
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+    
+    <style>
+      /* Apple-inspired glassmorphism and animations */
+      .glassmorphism {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .dark .glassmorphism {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.5s ease-in forwards;
+      }
+      
+      .pulse-live {
+        animation: pulse 2s infinite;
+      }
+      
+      .floating-button {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .floating-button:hover {
+        transform: scale(1.1);
+      }
+      
+      .floating-button:active {
+        transform: scale(0.95);
+      }
+      
+      @keyframes fadeIn {
+        to { opacity: 1; }
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      
+      /* Ensure smooth font rendering */
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      }
+      
+      /* Loading state styles */
+      .loading-shimmer {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+      
+      .dark .loading-shimmer {
+        background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+        background-size: 200% 100%;
+      }
+      
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

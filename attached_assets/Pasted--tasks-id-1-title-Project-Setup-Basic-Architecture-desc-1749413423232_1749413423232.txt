@@ -1,0 +1,138 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Project Setup & Basic Architecture",
+      "description": "Initialize the project repository. Set up the basic frontend (React/Next.js) and backend (Node.js/FastAPI) project structures. Configure the local development environment. Define initial data models (Snapshot, ModelProfile, DesignerProfile, ChatMessage).",
+      "details": "Includes setting up the monorepo or separate directories, installing dependencies, and configuring build processes. Define initial database schema for local persistence.",
+      "testStrategy": "Verify project structure, dependencies, and basic server/client startup.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 2,
+      "title": "Stream Ingestion Implementation",
+      "description": "Develop the backend module responsible for ingesting video streams from a specified YouTube URL or Livepeer source using FFmpeg or WebRTC. Handle stream decoding and preparation for frame processing.",
+      "details": "Focus on efficient frame extraction suitable for downstream AI processing. Consider latency implications.",
+      "testStrategy": "Test ingestion from a sample YouTube video and a simulated Livepeer stream. Verify stable stream processing and frame access.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 3,
+      "title": "Snapshot Capture Logic",
+      "description": "Implement the backend logic to capture high-quality still snapshots from the ingested video stream at key runway moments using heuristics (e.g., scene changes, model focus). Store snapshots locally or in a designated storage.",
+      "details": "Heuristics should be simple but effective for detecting key visual moments.",
+      "testStrategy": "Run stream ingestion and verify that snapshots are captured automatically at appropriate moments and stored correctly with relevant metadata (timestamp, source).",
+      "priority": "high",
+      "dependencies": [
+        2
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 4,
+      "title": "Model Identification Module",
+      "description": "Integrate a face recognition model (e.g., InsightFace) into the backend to identify models from captured snapshots. Implement a fallback mechanism for manual labeling if automated recognition fails. Store model identification results with snapshots.",
+      "details": "Choose a model suitable for local execution on a MacBook. Consider performance implications.",
+      "testStrategy": "Test with known model images in the stream to verify correct identification accuracy. Test manual labeling fallback workflow.",
+      "priority": "high",
+      "dependencies": [
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 5,
+      "title": "Designer & Outfit Trivia Module",
+      "description": "Develop the backend module to generate real-time trivia about designers and collections. Integrate with a local structured database (SQLite/PostgreSQL) seeded with fashion data and potentially use a local LLM or GPT-4 API to generate context-aware trivia based on identified models/outfits.",
+      "details": "Populate the local DB with initial designer/collection data. Decide on LLM integration strategy (local vs. API).",
+      "testStrategy": "Verify trivia generation for identified models/outfits. Test data retrieval from the local database. Ensure trivia is relevant and timely.",
+      "priority": "medium",
+      "dependencies": [
+        1,
+        4
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 6,
+      "title": "Virtual Try-On Integration",
+      "description": "Implement the backend integration with the FAL API to perform virtual try-on overlays using captured outfit snapshots. Develop the necessary API calls and handle the response to generate the try-on image.",
+      "details": "Handle API keys and rate limits if applicable. Ensure the overlay process is efficient.",
+      "testStrategy": "Test sending a sample snapshot to the FAL API and receiving/processing the try-on result image correctly.",
+      "priority": "high",
+      "dependencies": [
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 7,
+      "title": "Basic UI Development",
+      "description": "Build the foundational frontend UI using React/Next.js and TailwindCSS. Create the main layout including the stream viewing area. Implement basic UI elements like a header/footer and a toggle for light/dark mode based on Apple aesthetics.",
+      "details": "Focus on a clean, minimalist design as specified in the PRD.",
+      "testStrategy": "Verify the basic UI layout renders correctly across different window sizes. Test the light/dark mode toggle functionality.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 8,
+      "title": "Implement UI Overlays & Controls",
+      "description": "Develop frontend components to display real-time overlays, including snapshot cards with associated metadata (model, trivia) and floating action buttons (Chat, Share, Try-On). Ensure overlays appear momentarily and are non-intrusive. Implement smart control visibility.",
+      "details": "Design polished card components for snapshots. Ensure smooth transitions for overlay elements.",
+      "testStrategy": "Verify overlays appear correctly with relevant data from the backend. Test button visibility logic based on functional relevance.",
+      "priority": "high",
+      "dependencies": [
+        7
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 9,
+      "title": "Social Sharing Implementation",
+      "description": "Implement the frontend and backend logic for social media sharing. Integrate with selected platforms (e.g., Instagram, Twitter) via OAuth. Develop the auto-hashtag generation logic based on snapshot metadata (model, designer, event). Connect sharing actions from the UI buttons.",
+      "details": "Start with integration for one platform to manage scope. Use dev keys.",
+      "testStrategy": "Test OAuth flow for at least one platform. Verify auto-hashtag generation accuracy. Test sharing a snapshot with generated hashtags to a test account.",
+      "priority": "medium",
+      "dependencies": [
+        3,
+        4,
+        5,
+        8
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 10,
+      "title": "Local Watch Party Chat System",
+      "description": "Develop the backend WebSocket server for the local chat system and the corresponding frontend UI component (sidebar panel). Implement core chat functionalities: sending/receiving text messages and sharing captured snapshots, clips (if implemented), and try-on results within the chat feed.",
+      "details": "Implement a simple peer-to-peer or pub/sub model suitable for a local hackathon environment. No sentiment analysis needed.",
+      "testStrategy": "Test sending/receiving text messages between multiple local users. Test sharing snapshots and try-on results in the chat feed. Verify chat panel slides in/out correctly.",
+      "priority": "high",
+      "dependencies": [
+        3,
+        6,
+        8
+      ],
+      "status": "pending",
+      "subtasks": []
+    }
+  ]
+}

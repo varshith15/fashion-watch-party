@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Versace",
+    "collection": "Spring/Summer 2024",
+    "description": "This collection celebrates bold femininity with vibrant prints and architectural silhouettes.",
+    "bio": "Versace is an Italian luxury fashion company and trade name founded by Gianni Versace in 1978. The main collection is Versace, which produces upmarket Italian-made ready-to-wear and accessories, and distributes through its boutiques and department stores worldwide.",
+    "hashtags": ["#Versace", "#SS24", "#ItalianFashion"]
+  },
+  {
+    "id": 2,
+    "name": "Gucci",
+    "collection": "Fall/Winter 2024",
+    "description": "A collection inspired by timeless elegance and contemporary flair, featuring rich textures and classic designs.",
+    "bio": "Gucci is an Italian high-end luxury fashion house based in Florence, Italy. Its product lines include handbags, ready-to-wear, footwear, and accessories, makeup, fragrances, and home decoration. Gucci was founded in 1921 by Guccio Gucci in Florence, Tuscany.",
+    "hashtags": ["#Gucci", "#FW24", "#LuxuryFashion"]
+  },
+  {
+    "id": 3,
+    "name": "Dior",
+    "collection": "Haute Couture 2024",
+    "description": "Exploring the boundaries of craftsmanship with ethereal designs and intricate detailing.",
+    "bio": "Christian Dior SE, commonly known as Dior, is a French luxury fashion house controlled and chaired by French businessman Bernard Arnault, who also heads LVMH, the world's largest luxury group. Dior itself holds 42.36% shares of and 59.01% voting rights within LVMH.",
+    "hashtags": ["#Dior", "#HauteCouture", "#FrenchFashion"]
+  }
+] 

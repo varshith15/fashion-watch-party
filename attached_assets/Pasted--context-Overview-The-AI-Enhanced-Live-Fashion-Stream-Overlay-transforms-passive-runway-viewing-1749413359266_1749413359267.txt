@@ -1,0 +1,157 @@
+<context>
+# Overview  
+The AI‑Enhanced Live Fashion Stream Overlay transforms passive runway viewing into a fun, elevated watch‑party experience. It integrates real‑time snapshots, model/designer trivia, virtual try‑on, watch‑with‑friends chat, and social sharing—all powered by AI. For testing purposes, the livestream is simulated via a YouTube video or through Livepeer, running locally on a MacBook for hackathon deployment.
+
+# Core Features  
+1. Real‑Time Model & Outfit Capture  
+   What: Automatically grabs high‑quality snapshots during key runway moments.  
+   Why: Creates instant shareable clips and supports downstream features.  
+   How: Frame extraction via FFmpeg/WebRTC from YouTube or Livepeer; heuristics detect focal moments.
+
+2. Model Identification & Historical Insights  
+   What: Recognizes models instantly and displays runway history.  
+   Why: Enriches storytelling and audience connection.  
+   How: Use best‑available face‑recognition model (could be InsightFace or equivalent); falls back to manual labeling as needed.
+
+3. Designer & Outfit Trivia  
+   What: Shows curated facts about designers and collection context in real time.  
+   Why: Boosts informational value and engagement.  
+   How: GPT‑4 or open‑source LLM seeded by structured DB (local or API from Wikipedia/fashion archives).
+
+4. Virtual Try‑On (Phase 1)  
+   What: Users can virtually “try on” featured outfits via image overlay using the FAL API.  
+   Why: Promotes immersive testing, increasing fun and shareability.  
+   How: FAL API handles segmentation and overlay; no AR kit needed.
+
+5. Social Media Integration with Auto‑Hashtags (Phase 1)  
+   What: Enables direct sharing of snapshots and clips, with automatically generated hashtags.  
+   Why: Encourages viral sharing and consistent branding.  
+   How: Determine auto‑hashtags from model/designer/event metadata; integrate via OAuth with platforms (Instagram, Twitter, TikTok).
+
+6. Community Watch Party Chat (Phase 1)  
+   What: Synchronous chat with friends during watching, clip/screenshot sharing, and try‑on interactions.  
+   Why: Makes viewing fun, social, and immersive.  
+   How: Local WebSocket chat server, UI for sharing snapshots/clips/try‑on results; no sentiment analysis needed.
+
+7. Live Commentary & Music Recognition (Phase 2)  
+   What: Adds real‑time AI commentary and identifies background music.  
+   Why: Deepens narrative flow.  
+   How: Whisper for transcription, GPT‑4 for commentary, Shazam API for music metadata.
+
+8. Dynamic Mood Board Generator (Phase 3)  
+   What: Auto‑generates mood boards from captured snapshots to spark creativity.  
+   Why: Enables expressive user interaction and design brainstorming.  
+   How: CNN clustering backend + interactive UI.
+
+# User Experience  
+User Personas:  
+- Fashion Fan: wants fun, social, interactive viewing  
+- Social Creator: expects ready-to-share visuals, tools, and elevated design  
+- Stylist/Insider: values historical trivia and fashion context
+
+Key User Flows:  
+A. Start zoom-like local app streaming simulated runway (YouTube video or Livepeer).  
+B. Model/outfit detected → snapshot + overlay trivia.  
+C. Floating buttons: Chat, Share snapshot, Virtual Try‑On  
+D. Share: auto‑hashtags + caption templates.  
+E. Chat room with friends, where users can post snapshots/clips/try‑ons inline.  
+F. Phase 2 & 3: users get commentary/music info and make mood boards.
+
+UI/UX Considerations:  
+- Clean, minimalist UI inspired by Apple aesthetics  
+- Light/dark smoothly toggled  
+- Overlay elements appear momentarily, non‑intrusive  
+- Snapshots appear as polished cards with options (Chat, Try‑On, Share)  
+- Chat panel slides in like a “Watch Party” sidebar  
+- Buttons only show when functionally relevant (smart controls)
+
+</context>
+
+<PRD>
+# Technical Architecture  
+System Components:  
+- Frontend: React/Next.js, TailwindCSS or custom CSS for clean UI  
+- Local Backend: Node.js + Python FastAPI for AI features  
+- Stream Ingestion: WebRTC or FFmpeg from YouTube/Livepeer stream  
+- ML modules:  
+  • Face recognition (best available model or manually curated embeddings)  
+  • GPT‑4 or local LLM for trivia/commentary  
+  • Whisper + Shazam (Phase 2)  
+  • FAL API for virtual try‑on overlay
+
+Data Models:  
+- Snapshot: id, timestamp, imageUrl, modelId, designerId, tags, shareCount  
+- ModelProfile: id, name, faceEmbedding, runwayHistory  
+- DesignerProfile: id, name, bio, hashtags  
+- ChatMessage: id, userId, contentType (text/clip/try‑on), payload, timestamp
+
+APIs & Integrations:  
+- Face recognition via chosen model or service  
+- Trivia via GPT‑4/local LLM  
+- Try‑on segmentation via FAL API  
+- Social media via OAuth; hashtags auto-generated  
+- Stream via Livepeer device or YouTube URL capture  
+- WebSocket chat server for real‑time messaging
+
+Infrastructure:  
+- Runs locally on macOS; containers optional  
+- Simple SQLite or local PostgreSQL for persistence  
+- Local file system or AWS S3 optional for snapshot storage  
+- No publishing, strictly local run required
+
+# Development Roadmap  
+Phase 1:  
+- Simulated livestream ingest (YouTube or Livepeer)  
+- Snapshot capture and face detection  
+- Model+designer trivia overlay  
+- Virtual try‑on with FAL API  
+- Social sharing with auto‑hashtags  
+- Local watch‑party chat with sharing features
+
+Phase 2:  
+- Add Whisper-to‑GPT live commentary  
+- Integrate Shazam for music identification
+
+Phase 3:  
+- Mood board generator  
+- Optional advanced features or refine aesthetics
+
+# Logical Dependency Chain  
+1. Stream input + snapshot extraction  
+2. Face detection → model recognition  
+3. Trivia generation + overlay  
+4. Virtual try‑on pipeline  
+5. UI components: overlay, share buttons, chat button  
+6. Share integration + auto‑hashtags  
+7. Chat system + snapshot/clip posting  
+8. Commentary and music pipelines  
+9. Mood board module
+
+# Risks and Mitigations  
+Performance on local MacBook:  
+- Use frame skipping, optimize models, batch AI calls—but OK if latencies are minimal for hackathon
+
+Face model accuracy:  
+- Use simplest reliable model; manual labeling fallback if necessary
+
+Social APIs:  
+- Use dev keys, start with one platform to reduce scope
+
+Chat scaling:  
+- Simple peer or pub/sub server on local; minimal user base during hackathon
+
+Optional commentary/music not needed immediately
+
+# Appendix  
+Research Notes:  
+- YouTube latency buffer ~5–10s; Livepeer lowers to ~2–3s  
+- FAL API already tested for virtual try‑on  
+- UI typography & layout guidelines inspired by Apple’s Human Interface standards  
+- Hashtag generation logic: #[modelName], #[designerName], #[eventTag]
+
+Optional Feature Ideas:  
+- Clip creation: short video snippet (3–5s) around snapshot  
+- Reactions: like/heart on snapshots in chat  
+- Custom event modes: “Best look,” “Trend watch”—tag snapshots for later review
+
+</PRD>
